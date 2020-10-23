@@ -12,11 +12,11 @@ const port = 3000;
 
 // TODO: Fill with strings of your favorite quotes :)
 const quotes = [
-  'one',
-  'two',
-  'three',
-  'four',
-  'five'
+  'You miss 100% of the shots you dont take',
+  'Keep your jeans high and tight',
+  'P sherman 42 Wallaby Way',
+  'It all started with a mouse',
+  'The most magical place on Earth'
 ];
 
 //Utility Function to return a random integer
@@ -37,20 +37,29 @@ const handleRequest = function(req, res) {
   }
 
   // TODO: GET ONE
-  if ((req.url == '/quote/' || req.url == '/quote') && req.method == "FILL ME IN") {
-    //YOUR CODE HERE
-
+  if ((req.url == '/quote/' || req.url == '/quote') && req.method == "GET") {
+    res.writeHead(200, headers);
+    res.write(quotes[getRandomInt(0, quotes.length)]);
+    res.end();
   }
+
   // TODO: POST/CREATE
-  else if ((req.url == 'FILL ME IN' || req.url == 'FILL ME IN') && req.method == "FILL ME IN") {
-    //YOUR CODE HERE
+  else if ((req.url == '/quote/' || req.url == '/quote') && req.method == "POST") {
+    var body = '';
+    req.on('data', (data) => {
+      body += data;
+      quotes.push(body);
+    })
+    req.on('end', () => {
+      res.writeHead(200, headers);
+      res.end(body);
+    })
   }
 
 //CATCH ALL ROUTE
   else {
     res.writeHead(404,headers);
     res.end('Page not found');
-
   }
 }
 

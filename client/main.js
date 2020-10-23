@@ -13,12 +13,19 @@ $(document).ready(function() {
   function getQuote(){
 
     //YOUR CODE HERE, Add a GET request
+    $.get('http://localhost:3000/quote', data => {
+      $('#quote').append(data);
+    })
 
   }
 
   function addQuote(quote){
-    
+
     //YOUR CODE HERE, Add a POST request
+    $.post('http://localhost:3000/quote', quote, response => {
+      $('#form')[0].reset();
+      $('#response').text('Thank you for submitting')
+    })
 
   }
 });
